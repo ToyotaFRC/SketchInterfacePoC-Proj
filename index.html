@@ -1,0 +1,804 @@
+<!-- 
+ This source code is derived from DiffusionNOCS (https://github.com/woven-planet/DiffusionNOCS/tree/gh-pages)
+ Copyright 2025 Toyota Motor Corporation.  All rights reserved. 
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- <script src="bootstrap.css"></script> -->
+<script type="text/javascript" charset="utf-8"
+    src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+
+<style type="text/css">
+    body {
+        font-family: "Titillium Web", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+        font-weight: 300;
+        font-size: 17px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    @media screen and (min-width: 980px) {
+        body {
+            width: 980px;
+        }
+    }
+
+
+    h1 {
+        font-weight: 300;
+        line-height: 1.15em;
+    }
+
+    h2 {
+        font-size: 1.75em;
+    }
+
+    a:link,
+    a:visited {
+        color: #1468b7;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: #208799;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    h2,
+    h3 {
+        text-align: left;
+    }
+
+    h1 {
+        font-size: 40px;
+        font-weight: 500;
+    }
+
+    h2 {
+        font-weight: 400;
+        margin: 16px 0px 4px 0px;
+    }
+
+    h3 {
+        font-weight: 600;
+        margin: 16px 0px 4px 0px;
+    }
+
+    h4 {
+      font-style: italic;
+    }
+
+    .paper-title {
+        padding: 1px 0px 1px 0px;
+    }
+
+    section {
+        margin: 32px 0px 32px 0px;
+        text-align: justify;
+        clear: both;
+    }
+
+    .col-5 {
+        width: 20%;
+        float: left;
+    }
+
+    .move-down {
+        margin-top: 0.6cm;
+    }
+
+    .col-4 {
+        width: 25%;
+        float: left;
+    }
+
+    .col-3 {
+        width: 33%;
+        float: left;
+    }
+
+    .col-2 {
+        width: 50%;
+        float: left;
+    }
+
+    .col-1 {
+        width: 100%;
+        float: left;
+    }
+
+    .col-8 {
+        width: 12.5%;
+    }
+
+    .author-row,
+    .affil-row {
+        font-size: 26px;
+    }
+
+    .author-row-new {
+        text-align: center;
+    }
+
+    .author-row-new a {
+        display: inline-block;
+        font-size: 20px;
+        padding: 4px;
+    }
+
+    .author-row-new sup {
+        color: #313436;
+        font-size: 12px;
+    }
+
+    .affiliations-new {
+        font-size: 18px;
+        text-align: center;
+        width: 80%;
+        margin: 0 auto;
+        margin-bottom: 20px;
+    }
+
+    .row {
+        margin: 16px 0px 16px 0px;
+    }
+
+    .authors {
+        font-size: 26px;
+    }
+
+    .affiliatons {
+        font-size: 18px;
+    }
+
+    .affil-row {
+        margin-top: 18px;
+    }
+
+    .teaser {
+        max-width: 100%;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .screenshot {
+        width: 256px;
+        border: 1px solid #ddd;
+    }
+
+    .screenshot-el {
+        margin-bottom: 16px;
+    }
+
+    hr {
+        height: 1px;
+        border: 0;
+        border-top: 1px solid #ddd;
+        margin: 0;
+    }
+
+    .material-icons {
+        vertical-align: -6px;
+    }
+
+    p {
+        line-height: 1.25em;
+    }
+
+    .caption {
+        font-size: 16px;
+        color: #666;
+        margin-top: 4px;
+        margin-bottom: 10px;
+        text-align: left;
+    }
+
+    video {
+        display: block;
+        margin: auto;
+    }
+
+
+    figure {
+        display: block;
+        margin: auto;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    #bibtex pre {
+        font-size: 14px;
+        background-color: #eee;
+        padding: 16px;
+    }
+
+    .blue {
+        color: #2c82c9;
+        font-weight: bold;
+    }
+
+    .orange {
+        color: #d35400;
+        font-weight: bold;
+    }
+
+    .flex-row {
+        display: flex;
+        flex-flow: row wrap;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+
+    .paper-btn-coming-soon {
+        position: relative;
+        text-align: center;
+
+        display: inline-block;
+        margin: 8px;
+        padding: 8px 8px;
+
+        border-width: 0;
+        outline: none;
+        border-radius: 15px;
+
+        background-color: #838383;
+        color: white !important;
+        font-size: 20px;
+        width: 100px;
+        font-weight: 200;
+    }
+
+    .coming-soon {
+        position: absolute;
+        top: -15px;
+        right: -15px;
+    }
+
+    .center {
+        margin-left: 10.0%;
+        margin-right: 10.0%;
+    }
+
+    .paper-btn {
+        position: relative;
+        text-align: center;
+
+        display: inline-block;
+        margin: 8px;
+        padding: 8px 8px;
+
+        border-width: 0;
+        outline: none;
+        border-radius: 15px;
+
+        background-color: #3e3131;
+        color: white !important;
+        font-size: 20px;
+        width: 100px;
+        font-weight: 200;
+    }
+
+    .paper-btn-parent {
+        display: flex;
+        justify-content: center;
+        margin: 16px 0px;
+    }
+
+    .paper-btn:hover {
+        opacity: 0.85;
+    }
+
+    .container {
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .venue {
+        font-size: 23px;
+    }
+
+    .topnav {
+        background-color: #EEEEEE;
+        overflow: hidden;
+    }
+
+    .topnav div {
+        max-width: 1070px;
+        margin: 0 auto;
+    }
+
+    .topnav a {
+        display: inline-block;
+        color: black;
+        text-align: center;
+        vertical-align: middle;
+        padding: 16px 16px;
+        text-decoration: none;
+        font-size: 18px;
+    }
+
+    .topnav img {
+        padding: 2px 0px;
+        width: 100%;
+        margin: 0.2em 0px 0.3em 0px;
+        vertical-align: middle;
+    }
+
+    pre {
+        font-size: 0.9em;
+        padding-left: 7px;
+        padding-right: 7px;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        border-radius: 3px;
+        background-color: rgb(235, 235, 235);
+        overflow-x: auto;
+    }
+
+    .download-thumb {
+        display: flex;
+    }
+
+    @media only screen and (max-width: 620px) {
+        .download-thumb {
+            display: none;
+        }
+    }
+
+    .paper-stuff {
+        width: 50%;
+        font-size: 20px;
+    }
+
+    @media only screen and (max-width: 620px) {
+        .paper-stuff {
+            width: 100%;
+        }
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    .column {
+        text-align: center;
+        float: left;
+        width: 16.666%;
+        padding: 5px;
+    }
+
+    .column3 {
+        text-align: center;
+        float: left;
+        width: 33.333%;
+        padding: 5px;
+    }
+
+    .column4 {
+        text-align: center;
+        float: left;
+        width: 50%;
+        padding: 5px;
+    }
+
+    .column5 {
+        text-align: center;
+        float: left;
+        width: 20%;
+        padding: 5px;
+    }
+
+    .column10 {
+        text-align: center;
+        float: left;
+        width: 10%;
+        padding: 5px;
+    }
+
+    .border-right {
+        border-right: 1px solid black;
+    }
+
+    .border-bottom {
+        border-bottom: 1px solid black;
+    }
+
+
+    .row-center {
+        margin: 16px 0px 16px 0px;
+        text-align: center;
+    }
+
+    /* Clearfix (clear floats) */
+    .row::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+
+    .img-fluid {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .img-fluid-80 {
+        max-width: 80%;
+        height: auto;
+    }
+
+    .img-fluid-60 {
+        max-width: 60%;
+        height: auto;
+    }
+
+    .figure-img {
+        margin-bottom: 0.5rem;
+        line-height: 1;
+    }
+
+    .rounded-circle {
+        border-radius: 50% !important;
+    }
+
+    .sketch-font {
+        font-family: "Shadows Into Light", sans-serif;
+    }
+
+    /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+    @media screen and (max-width: 500px) {
+        .column {
+            width: 100%;
+        }
+    }
+
+    @media screen and (max-width: 500px) {
+        .column3 {
+            width: 100%;
+        }
+    }
+
+    table {
+        width: 80%;
+        table-layout: fixed;
+        border-collapse: collapse;
+    }
+    th {
+        text-align: center;
+        border: 1px;
+    }
+    td {
+        border: 1px;
+        padding: 4px;
+        text-overflow: ellipsis; 
+        text-align: center;
+    }
+    th:first-child, td:first-child {
+        border-right: 3px solid #000; /* Thicker line between column 1 and column 2 */
+    }
+</style>
+<link rel="stylesheet" href="bootstrap-grid.css">
+<link rel="stylesheet" href="affiliations-container.css"></script>
+<link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,600,400italic,600italic,300,300italic'
+    rel='stylesheet' type='text/css'>
+
+<head>
+    <title>
+        Sketch Interface for Teleoperation of Mobile Manipulator to Enable Intuitive and Intended Operation: A Proof of Concept
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:description" content="A proof-of-concept study proposing a sketch-based interface for intuitive teleoperation of mobile manipulators." />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="#">
+    <link rel="icon" href="favicon.ico" />
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:creator" content="">
+    <meta name="twitter:title"
+        content="Sketch Interface for Teleoperation of Mobile Manipulator to Enable Intuitive and Intended Operation: A Proof of Concept">
+    <meta name="twitter:description" content="A proof-of-concept study proposing a sketch-based interface for intuitive teleoperation of mobile manipulators.">
+    <meta name="twitter:image" content="">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="paper-title">
+            <h1>
+                Sketch Interface for Teleoperation of Mobile Manipulator to Enable Intuitive and Intended Operation: A Proof of Concept
+        </div>
+
+        <div id="authors">
+            <center>
+                <div class="author-row-new">
+                    <a href="https://orcid.org/0009-0006-6418-2298">Yuka Iwanaga<sup>1</sup></a>,
+                    <a href="https://orcid.org/0009-0002-1817-1329">Masayoshi Tsuchinaga<sup>1</sup></a>,
+                    <a href="https://www.linkedin.com/in/kosei-tanada-7239b826b/">Kosei Tanada<sup>1</sup></a>,
+                    <a href="https://orcid.org/0009-0004-9453-7737">Yuji Nakamura<sup>1</sup></a>,
+                    <a href="https://orcid.org/0009-0005-8112-7859">Takemitsu Mori<sup>1</sup></a>,<br>
+                    and <a href="https://orcid.org/0000-0002-6775-2077">Takashi Yamamoto<sup>2</sup></a>
+                </div>
+            </center>
+            <center>
+                <div class="affiliatons">
+                    <span class="author-block">
+                        <sup>1</sup>
+                        Frontier Research Center, Toyota Motor Corporation, 
+                        <sup>2</sup> Aichi Institute of Technology
+                    </span>
+                    <div class="affiliations-logos">
+                        <a href="https://global.toyota/en/mobility/frontier-research/"
+                                style="vertical-align:middle">
+                            <img class="affiliation-logo-img" src="img/frc-logo.png">
+                        </a>
+                        <a href="https://www.ait.ac.jp/e/" style="vertical-align:middle">
+                            <img class="affiliation-logo-img" src="img/ait-logo.jpg">
+                        </a> 
+                    </div>
+                </div>
+
+            </center>
+
+            <div style="clear: both">
+                <div class="paper-btn-parent">
+                    <a class="paper-btn" href="https://arxiv.org/abs/2505.13931">
+                        <span class="material-icons"> feed </span>
+                        Paper
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <section id="teaser-image">
+            <center>
+                <figure>
+                    <video class="centered" width="100%" autoplay loop muted playsinline class="video-background ">
+                        <source src="img/supplemental_material.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <p class="caption, centered">
+                        We analyze users' natural sketches and propose a sketch interface for
+                        mobile manipulators that is intuitive and intended operation.
+                    </p>
+                </figure>
+            </center>
+        </section>
+
+        <section id="abstract">
+            <h2>Abstract</h2>
+            <hr>
+            <div class="flex-row">
+                <p>
+                    Recent advancements in robotics have underscored the need for effective collaboration
+                    between humans and robots. Traditional interfaces often struggle to balance robot 
+                    autonomy with human oversight, limiting their practical application in complex tasks 
+                    like mobile manipulation. This study aims to develop an intuitive interface that 
+                    enables a mobile manipulator to autonomously interpret user-provided sketches, 
+                    enhancing user experience while minimizing burden. We implemented a web-based 
+                    application utilizing machine learning algorithms to process sketches, making the 
+                    interface accessible on mobile devices for use anytime, anywhere, by anyone. 
+                    In the first validation, we examined natural sketches drawn by users for 
+                    27 selected manipulation and navigation tasks, gaining insights into trends 
+                    related to sketch instructions. The second validation involved comparative 
+                    experiments with five grasping tasks, showing that the sketch interface reduces 
+                    workload and enhances intuitiveness compared to conventional axis control interfaces. 
+                    These findings suggest that the proposed sketch interface improves 
+                    the efficiency of mobile manipulators and opens new avenues for integrating 
+                    intuitive human-robot collaboration in various applications.
+                </p>
+            </div>
+        </section>
+
+        <section id="our-goal">
+            <h2>Our Goal</h2>
+            <hr>
+            <div class="row align-items-center">
+                <div class="col justify-content-center text-center">
+                    <img src='img/our_goal.png' class='img-fluid'>
+                </div>
+            </div>
+            <p>Our ultimate goal is to create an interface that allows anyone, anywhere, 
+                at any time to operate a mobile manipulator without the need for special devices. 
+                We aim to facilitate intuitive communication of movement and grasping intentions, 
+                such as where to grasp or which direction to grasp.
+            </p>
+        </section>
+        <br>
+
+        <section id="approach">
+            <h2>Approach</h2>
+            <hr>
+            <p>Our solution is a sketch-based interface. We aim to develop an interface that effectively conveys
+               the user's intentions for movement and grasping through simple sketches. We conducted two experiments:
+               the first assessed users' tendencies in sketch instruction, while the second involved a user study
+               comparing our interface with a traditional click-based interface across various tasks.
+            </p>
+            <h3>Task Definition</h3>
+            <p>We defined 27 mobile manipulation tasks for our experiments.
+                The 18 manipulation tasks were derived from <a href="https://www.cs.cmu.edu/~jialiu1/database.html">the grasp taxonomy research</a>
+                and reinterpreted for a single-arm mobile manipulator with a gripper.
+                The remaining tasks included movement instructions, view control, and complex sequenced tasks.
+            </p>
+            <table style="border-collapse: collapse; width: 80%; font-size: 90%; margin: auto;">
+                <caption>
+                    List of selected grasping tasks from the grasp taxonomy, with a checklist of those used in experiments 1 and 2
+                </caption>
+                <thead>
+                    <tr>
+                    <th style="border-bottom: 2px solid #000; width: 5%;">No.</th>
+                    <th style="border-bottom: 2px solid #000; width: 65%;">Annotation (Task)</th>
+                    <th style="border-bottom: 2px solid #000; width: 10%;">Taxonomy No.</th>
+                    <th style="border-bottom: 2px solid #000; width: 10%;">Expt.1</th>
+                    <th style="border-bottom: 2px solid #000; width: 10%;">Expt.2</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>Squeeze an empty soda can</td><td>1</td><td>✓</td><td>✓</td></tr>
+                    <tr><td>2</td><td>Hold the bags</td><td>2</td><td>✓</td><td>✓</td></tr>
+                    <tr><td>3</td><td>Hold a bunch of flowers</td><td>3</td><td>✓</td><td>✓</td></tr>
+                    <tr><td>4</td><td>Hold a disk</td><td>12</td><td>✓</td><td>✓</td></tr>
+                    <tr><td>5</td><td>Plug in a plug</td><td>13</td><td>✓</td><td>✓</td></tr>
+                    <tr><td>6</td><td>Hold a light bag</td><td>15</td><td>✓</td><td>×</td></tr>
+                    <tr><td>7</td><td>Stick a plate into a dishwasher</td><td>18</td><td>✓</td><td>×</td></tr>
+                    <tr><td>8</td><td>Hold a bowl</td><td>19</td><td>✓</td><td>×</td></tr>
+                    <tr><td>9</td><td>Press the dish washer bottle</td><td>54</td><td>✓</td><td>×</td></tr>
+                    <tr><td>10</td><td>Hold an open book</td><td>71</td><td>✓</td><td>×</td></tr>
+                    <tr><td>11</td><td>Put in/take out the forks from a dishwasher</td><td>2</td><td>✓</td><td>×</td></tr>
+                    <tr><td>12</td><td>Lift a pan</td><td>2</td><td>✓</td><td>×</td></tr>
+                    <tr><td>13</td><td>Hold a cell phone</td><td>12</td><td>✓</td><td>×</td></tr>
+                    <tr><td>14</td><td>Cut with scissors</td><td>19</td><td>✓</td><td>×</td></tr>
+                    <tr><td>15</td><td>Press the drying machine button</td><td>55</td><td>✓</td><td>×</td></tr>
+                    <tr><td>16</td><td>Press a screen button</td><td>56</td><td>✓</td><td>×</td></tr>
+                    <tr><td>17</td><td>Lift up the switch</td><td>65</td><td>✓</td><td>×</td></tr>
+                    <tr><td>18</td><td>Pick up card</td><td>69</td><td>✓</td><td>×</td></tr>
+                    <tr><td>19</td><td>Move near an orange drawer</td><td>-</td><td>✓</td><td>×</td></tr>
+                    <tr><td>20</td><td>Move and face a gray tray</td><td>-</td><td>✓</td><td>×</td></tr>
+                    <tr><td>21</td><td>Look down to the right</td><td>-</td><td>✓</td><td>×</td></tr>
+                    <tr><td>22</td><td>Place a snack on a shelf</td><td>-</td><td>✓</td><td>×</td></tr>
+                    <tr><td>23</td><td>Place a snack on a white table</td><td>-</td><td>✓</td><td>×</td></tr>
+                    <tr><td>24</td><td>Put a yellow ball into a blue box</td><td>-</td><td>✓</td><td>×</td></tr>
+                    <tr><td>25</td><td>Pull a drawer approximately 10 cm</td><td>-</td><td>✓</td><td>×</td></tr>
+                    <tr><td>26</td><td>Hand a snack to a person</td><td>-</td><td>✓</td><td>×</td></tr>
+                    <tr><td>27</td><td>Stack cups in this order from top to bottom: blue, yellow, red</td><td>-</td><td>✓</td><td>×</td></tr>
+                </tbody>
+            </table>
+        </section>
+        <br>
+
+        <section id="experiment1">
+            <h2>Experiment I: Sketch Instruction Tendency</h2>
+            <hr>
+            <p>Investigate how individuals instruct a robot to perform 27 various tasks including manipulation and navigation.
+                This experiment was approved by our company’s research ethics review board.
+            </p>
+            <h3>User Interface</h3>
+            <div class="row align-items-center">
+                <div class="col justify-content-center text-center">
+                    <img src='img/user_eval1_ui.png' class='img-fluid'>
+                    <p class="caption, centered">
+                        Participants interpreted the task using the instruction text and the figure on the left, 
+                        and provided sketch instructions within the figure on the right, under a time constraint.
+                    </p>
+                </div>
+            </div>
+
+            <h3>Results</h3>
+            <h4>Sketches by Users</h4>
+            <div class="row align-items-center">
+                <div class="col justify-content-center text-center">
+                    <img src='img/user_exp1_grasp.jpg' class='img-fluid'>
+                    <p class="caption, centered">
+                        For grasping tasks, 71% of users drew a C-shaped symbol resembling a gripper. 
+                    </p>
+                </div>
+            </div>
+
+            <div class="row align-items-center">
+                <div class="col justify-content-center text-center">
+                    <img src='img/user_exp1_move.jpg' class='img-fluid'>
+                    <p class="caption, centered">
+                        For movement tasks, 86% of sketches used lines or arrows, effectively representing paths.
+                    </p>
+                </div>
+            </div>
+
+            <h4>Analysis by Task Category</h4>
+            <div class="row align-items-center">
+                <div class="col justify-content-center text-center">
+                    <img src='img/eval1_result.png' class='img-fluid-80'>
+                </div>
+            </div>
+        </section>
+        <br>
+
+        <section id="experiment2">
+            <h2>Experiment II: Prototype User Study</h2>
+            <hr>
+            <p>Compare our sketch-based interface to a click-based interface through 5 grasping tasks.
+                This experiment was approved by our company’s research ethics review board.
+            </p>
+            <h3>User Interface</h3>
+            <div class="row align-items-center">
+                <div class="col justify-content-center text-center">
+                    <img src='img/click-based_ui.png' class='img-fluid'>
+                    <p class="caption, centered">
+                        Baseline (click-based UI): (1) View mode, (2) Navigation mode, (3) Arm mode, and (4) Gripper mode.<br>
+                        Users switch between control modes based on the target axis
+                        and issue velocity commands for each axis.<br>
+                        This interface was inspired by <a href="https://doi.org/10.1109/RO-MAN50785.2021.9515511">this research</a>.
+                    </p>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col justify-content-center text-center">
+                    <img src='img/sketch-based_ui.png' class='img-fluid'>
+                    <p class="caption, centered">
+                        Proposed (sketch-based UI): (1) View mode, (2) Navigation mode, (3) ~ (6) Manipulation mode.<br>
+                        In View mode, the screen can be scrolled in any direction to change the robot's viewpoint.<br>
+                        In Navigation mode, the robot moves along the sketch of the line drawn on the ground.<br>
+                        In Manipulation mode, first, click on the target object ((3)).
+                        Then, in the enlarged screen where the segmentation results are highlighted ((4)),
+                        sketch how to grasp the object using the C-shaped symbol ((5)).
+                        After that, confirm the inference results regarding the grasping positoin and orientation
+                        using the 3D viewer, make adjustments as necessary ((6))
+                        and execute the robot's action commands.
+                    </p>
+                </div>
+            </div>
+
+            <h3>Results</h3>
+            Compared to the click-based baseline, the sketch interface yielded 
+            lower workload and higher ratings for intuitiveness and attractiveness.
+            <div class="col justify-content-center text-center">
+                <img src='img/nasa-tlx.png' class='img-fluid-80'>
+                <p class="caption, centered">Average results of NASA-TLX</p>
+            </div>
+            <div class="col justify-content-center text-center">
+                <img src='img/questionnaire.png' class='img-fluid-80'>
+                <p class="caption, centered">Results of the questionnaire<br>
+                    These questions were rated on a 5-point Likert scale (-2: Strongly disagree, -1: Disagree, 0: Undecided,  1: Agree, 2: Strongly agree)</p>
+            </div>
+        </section>
+        <br>
+
+        <section id="bibtex">
+            <h2>Citation</h2>
+            <hr>
+            <pre><code>@inproceedings{10.5555/3721488.3721516,
+                author = {Iwanaga, Yuka and Tsuchinaga, Masayoshi and Tanada, Kosei and Nakamura, Yuji and Mori, Takemitsu and Yamamoto, Takashi},
+                title = {Sketch Interface for Teleoperation of Mobile Manipulator to Enable Intuitive and Intended Operation: A Proof of Concept},
+                year = {2025},
+                booktitle = {Proceedings of the 2025 ACM/IEEE International Conference on Human-Robot Interaction},
+                pages = {193–202},
+                location = {Melbourne, Australia},
+                series = {HRI '25}
+                }
+            </code></pre>
+        </section>
+        <br>
+
+        <section in="notification">
+            <h2>Notification</h2>
+            <hr>
+            <p> The project page was solely developed for and published as part of the publication, titled
+                ``<i>Sketch Interface for Teleoperation of Mobile Manipulator to Enable Intuitive and Intended Operation: A Proof of Concept</i>'' for its
+                visualization.
+                We do not ensure the future maintenance and monitoring of this page.</p>
+            <p> Contents might be updated or deleted without notice regarding the original manuscript update and policy
+                change. </p>
+            <p>This webpage template was adapted from <a
+                    href='https://woven-planet.github.io/DiffusionNOCS/'>DiffusionNOCS</a> -- we thank Takuya Ikeda for additional support and making their source available.</p>
+        </section>
+    </div>
+</body>
+
+</html>
